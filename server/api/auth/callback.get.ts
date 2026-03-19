@@ -26,6 +26,7 @@ export default defineEventHandler(async (event) => {
     code: query.code as string,
     redirect_uri: oidc.redirectUri,
     client_id: oidc.clientId,
+    code_verifier: session.data.codeVerifier,
   }
 
   const headers: Record<string, string> = {
