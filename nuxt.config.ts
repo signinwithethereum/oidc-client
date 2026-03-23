@@ -3,6 +3,15 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
+  app: {
+    head: {
+      title: 'OIDC Client',
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/client-logo.svg' },
+      ],
+    },
+  },
+
   devServer: {
     port: 3001,
   },

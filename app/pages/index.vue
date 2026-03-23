@@ -6,7 +6,8 @@ await fetchUser()
 
 <template>
   <main>
-    <h1>SIWE OIDC Client</h1>
+    <img src="/client-logo.png" alt="OIDC Client" width="64" height="64" />
+    <h1>OIDC Client</h1>
 
     <div v-if="loading">Loading...</div>
 
