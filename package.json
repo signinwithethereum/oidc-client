@@ -1,5 +1,5 @@
 {
-  "name": "siwe-oidc-client",
+  "name": "@signinwithethereum/oidc-client",
   "type": "module",
   "private": true,
   "scripts": {
