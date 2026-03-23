@@ -6,9 +6,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'OIDC Client',
-      link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/client-logo.svg' },
-      ],
+      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/client-logo.svg' }],
     },
   },
 

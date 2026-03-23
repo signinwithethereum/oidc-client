@@ -12,7 +12,9 @@ interface OIDCConfiguration {
 
 let cachedConfig: OIDCConfiguration | null = null
 
-export async function getOIDCConfiguration(event: H3Event): Promise<OIDCConfiguration> {
+export async function getOIDCConfiguration(
+  event: H3Event,
+): Promise<OIDCConfiguration> {
   if (cachedConfig) return cachedConfig
 
   const { oidc } = useRuntimeConfig(event)

@@ -8,7 +8,10 @@ export default defineEventHandler(async (event) => {
 
   // Generate PKCE code verifier and challenge (S256)
   const codeVerifier = generateRandomString(64)
-  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(codeVerifier))
+  const digest = await crypto.subtle.digest(
+    'SHA-256',
+    new TextEncoder().encode(codeVerifier),
+  )
   const codeChallenge = btoa(String.fromCharCode(...new Uint8Array(digest)))
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
@@ -30,7 +33,8 @@ export default defineEventHandler(async (event) => {
 })
 
 function generateRandomString(length: number): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'
+  const chars =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'
   const array = crypto.getRandomValues(new Uint8Array(length))
   return Array.from(array, (byte) => chars[byte % chars.length]).join('')
 }

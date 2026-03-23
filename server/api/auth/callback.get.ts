@@ -17,7 +17,10 @@ export default defineEventHandler(async (event) => {
   }
 
   if (!query.code) {
-    throw createError({ statusCode: 400, message: 'Missing authorization code' })
+    throw createError({
+      statusCode: 400,
+      message: 'Missing authorization code',
+    })
   }
 
   // Exchange code for tokens
@@ -35,7 +38,8 @@ export default defineEventHandler(async (event) => {
 
   // Use client_secret if configured
   if (oidc.clientSecret) {
-    headers['Authorization'] = `Basic ${btoa(`${oidc.clientId}:${oidc.clientSecret}`)}`
+    headers['Authorization'] =
+      `Basic ${btoa(`${oidc.clientId}:${oidc.clientSecret}`)}`
   }
 
   const tokens = await $fetch<{
