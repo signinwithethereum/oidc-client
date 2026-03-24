@@ -16,6 +16,8 @@ export const getClientRegistration = lazySingleton(
       })
     }
 
+    const baseUrl = new URL('/', oidc.redirectUri).toString().replace(/\/$/, '')
+
     return $fetch<ClientRegistration>(config.registration_endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -23,6 +25,8 @@ export const getClientRegistration = lazySingleton(
         redirect_uris: [oidc.redirectUri],
         post_logout_redirect_uris: [new URL('/', oidc.redirectUri).toString()],
         client_name: 'OIDC Client',
+        logo_uri: `${baseUrl}/client-logo.png`,
+        client_uri: baseUrl,
         grant_types: ['authorization_code'],
         response_types: ['code'],
         token_endpoint_auth_method: 'none',
