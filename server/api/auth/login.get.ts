@@ -1,7 +1,10 @@
 export default defineEventHandler(async (event) => {
   const { oidc } = useRuntimeConfig(event)
-  const config = await getOIDCConfiguration(event)
-  const session = await getUserSession(event)
+  const [config, registration, session] = await Promise.all([
+    getOIDCConfiguration(event),
+    getClientRegistration(event),
+    getUserSession(event),
+  ])
 
   // Generate random state for CSRF protection
   const state = crypto.randomUUID()
@@ -20,7 +23,7 @@ export default defineEventHandler(async (event) => {
   await session.update({ state, codeVerifier })
 
   const params = new URLSearchParams({
-    client_id: oidc.clientId,
+    client_id: registration.client_id,
     redirect_uri: oidc.redirectUri,
     response_type: 'code',
     scope: oidc.scope,

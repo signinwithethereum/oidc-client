@@ -1,7 +1,10 @@
 export default defineEventHandler(async (event) => {
   const { oidc } = useRuntimeConfig(event)
-  const config = await getOIDCConfiguration(event)
-  const session = await getUserSession(event)
+  const [config, registration, session] = await Promise.all([
+    getOIDCConfiguration(event),
+    getClientRegistration(event),
+    getUserSession(event),
+  ])
   const query = getQuery(event)
 
   // Verify state matches
@@ -28,18 +31,8 @@ export default defineEventHandler(async (event) => {
     grant_type: 'authorization_code',
     code: query.code as string,
     redirect_uri: oidc.redirectUri,
-    client_id: oidc.clientId,
+    client_id: registration.client_id,
     code_verifier: session.data.codeVerifier,
-  }
-
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/x-www-form-urlencoded',
-  }
-
-  // Use client_secret if configured
-  if (oidc.clientSecret) {
-    headers['Authorization'] =
-      `Basic ${btoa(`${oidc.clientId}:${oidc.clientSecret}`)}`
   }
 
   const tokens = await $fetch<{
@@ -48,7 +41,7 @@ export default defineEventHandler(async (event) => {
     token_type: string
   }>(config.token_endpoint, {
     method: 'POST',
-    headers,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams(body).toString(),
   })
 

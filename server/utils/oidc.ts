@@ -10,18 +10,11 @@ interface OIDCConfiguration {
   registration_endpoint?: string
 }
 
-let cachedConfig: OIDCConfiguration | null = null
-
-export async function getOIDCConfiguration(
-  event: H3Event,
-): Promise<OIDCConfiguration> {
-  if (cachedConfig) return cachedConfig
-
-  const { oidc } = useRuntimeConfig(event)
-  const url = `${oidc.issuer}/.well-known/openid-configuration`
-
-  const config = await $fetch<OIDCConfiguration>(url)
-  cachedConfig = config
-
-  return config
-}
+export const getOIDCConfiguration = lazySingleton(
+  async (event: H3Event): Promise<OIDCConfiguration> => {
+    const { oidc } = useRuntimeConfig(event)
+    return $fetch<OIDCConfiguration>(
+      `${oidc.issuer}/.well-known/openid-configuration`,
+    )
+  },
+)
