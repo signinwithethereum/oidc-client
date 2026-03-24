@@ -6,13 +6,9 @@ const { user, logout } = useAuth()
 
 <template>
   <main>
-    <img
-      src="/client-logo.png"
-      alt="OIDC Client"
-      width="64"
-      height="64"
-    />
     <h1>Dashboard</h1>
+
+    <p>Very secret page only signed in users should be able to access.</p>
 
     <div v-if="user">
       <div v-if="user.picture">

@@ -8,12 +8,6 @@ if (user.value) await navigateTo('/dashboard')
 
 <template>
   <main>
-    <img
-      src="/client-logo.png"
-      alt="OIDC Client"
-      width="64"
-      height="64"
-    />
     <h1>OIDC Client Example</h1>
 
     <div v-if="loading">Loading...</div>
