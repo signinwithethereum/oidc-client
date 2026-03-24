@@ -1,8 +1,8 @@
 # @signinwithethereum/oidc-client
 
-An OpenID Connect client that authenticates users with their Ethereum wallets via [Sign-In with Ethereum (SIWE)](https://login.xyz). Built with [Nuxt](https://nuxt.com) and [Nuxt UI](https://ui.nuxt.com).
+An OpenID Connect client that authenticates users with their Ethereum wallets via [Sign-In with Ethereum (SIWE)](https://siwe.xyz).
 
-Designed to work with [`@signinwithethereum/oidc-provider`](../oidc) as the identity provider.
+Designed to work with [`@signinwithethereum/oidc-provider`](https://github.com/signinwithethereum/oidc-provider) as the identity provider.
 
 ## How it works
 
@@ -41,18 +41,18 @@ cp .env.example .env
 
 ### Environment variables
 
-| Variable | Description | Default |
-|---|---|---|
-| `NUXT_SESSION_SECRET` | Encryption key for session cookies (min 32 chars) | |
-| `NUXT_OIDC_ISSUER` | URL of the OIDC provider | `http://localhost:3000` |
-| `NUXT_OIDC_REDIRECT_URI` | OAuth callback URL | `http://localhost:3001/api/auth/callback` |
-| `NUXT_OIDC_SCOPE` | Requested OIDC scopes | `openid profile` |
-| `NUXT_OIDC_CLIENT_NAME` | Display name shown on the provider's consent screen | `Example OIDC Client` |
-| `NUXT_OIDC_CLIENT_URI` | Client homepage URL | `http://localhost:3001` |
-| `NUXT_OIDC_LOGO_URI` | Client logo URL | `http://localhost:3001/client-logo.png` |
-| `NUXT_OIDC_POLICY_URI` | Privacy policy URL | |
-| `NUXT_OIDC_TOS_URI` | Terms of service URL | |
-| `NUXT_OIDC_CONTACTS` | Admin contact emails (comma-separated) | |
+| Variable                 | Description                                         | Default                                   |
+| ------------------------ | --------------------------------------------------- | ----------------------------------------- |
+| `NUXT_SESSION_SECRET`    | Encryption key for session cookies (min 32 chars)   |                                           |
+| `NUXT_OIDC_ISSUER`       | URL of the OIDC provider                            | `http://localhost:3000`                   |
+| `NUXT_OIDC_REDIRECT_URI` | OAuth callback URL                                  | `http://localhost:3001/api/auth/callback` |
+| `NUXT_OIDC_SCOPE`        | Requested OIDC scopes                               | `openid profile`                          |
+| `NUXT_OIDC_CLIENT_NAME`  | Display name shown on the provider's consent screen | `Example OIDC Client`                     |
+| `NUXT_OIDC_CLIENT_URI`   | Client homepage URL                                 | `http://localhost:3001`                   |
+| `NUXT_OIDC_LOGO_URI`     | Client logo URL                                     | `http://localhost:3001/client-logo.png`   |
+| `NUXT_OIDC_POLICY_URI`   | Privacy policy URL                                  |                                           |
+| `NUXT_OIDC_TOS_URI`      | Terms of service URL                                |                                           |
+| `NUXT_OIDC_CONTACTS`     | Admin contact emails (comma-separated)              |                                           |
 
 `NUXT_OIDC_CLIENT_ID` and `NUXT_OIDC_CLIENT_SECRET` are optional -- the client registers itself automatically via the provider's registration endpoint.
 
