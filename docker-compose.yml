@@ -1,0 +1,16 @@
+services:
+  oidc-client:
+    build: .
+    ports:
+      - '3001:3001'
+    environment:
+      - NUXT_SESSION_SECRET=${NUXT_SESSION_SECRET}
+      - NUXT_OIDC_ISSUER=${NUXT_OIDC_ISSUER:-http://localhost:3000}
+      - NUXT_OIDC_REDIRECT_URI=${NUXT_OIDC_REDIRECT_URI:-http://localhost:3001/api/auth/callback}
+      - NUXT_OIDC_SCOPE=${NUXT_OIDC_SCOPE:-openid profile}
+      - NUXT_OIDC_CLIENT_NAME=${NUXT_OIDC_CLIENT_NAME:-Example OIDC Client}
+      - NUXT_OIDC_CLIENT_URI=${NUXT_OIDC_CLIENT_URI:-http://localhost:3001}
+      - NUXT_OIDC_LOGO_URI=${NUXT_OIDC_LOGO_URI:-http://localhost:3001/client-logo.png}
+      - NUXT_OIDC_POLICY_URI=${NUXT_OIDC_POLICY_URI:-http://localhost:3001/privacy}
+      - NUXT_OIDC_TOS_URI=${NUXT_OIDC_TOS_URI:-http://localhost:3001/terms}
+      - NUXT_OIDC_CONTACTS=${NUXT_OIDC_CONTACTS:-info@ethfollow.xyz}
