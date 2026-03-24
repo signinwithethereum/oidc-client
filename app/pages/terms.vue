@@ -1,6 +1,6 @@
 <template>
   <UContainer class="py-16 max-w-2xl">
-    <h1 class="text-3xl font-bold mb-2">Terms of Service</h1>
+    <h1 class="text-3xl font-bold">Terms of Service</h1>
     <p class="text-muted text-sm mb-10">
       Last updated:
       {{

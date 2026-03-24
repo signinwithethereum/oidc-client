@@ -6,13 +6,24 @@ const { user, logout } = useAuth()
 
 <template>
   <UContainer class="py-16">
-    <h1 class="text-3xl font-bold">Dashboard</h1>
+    <div class="flex flex-col md:flex-row items-center gap-12 mb-10">
+      <div class="flex-1">
+        <h1 class="text-3xl font-bold">Dashboard</h1>
+        <p class="text-muted mt-2">
+          Very secret page only signed in users should be able to access.
+        </p>
+      </div>
 
-    <p class="text-muted mt-2">
-      Very secret page only signed in users should be able to access.
-    </p>
+      <div class="flex-1 flex justify-center">
+        <img
+          src="/what-is-ethereum.png"
+          alt="Ethereum"
+          class="max-w-xs md:max-w-sm"
+        />
+      </div>
+    </div>
 
-    <UCard class="mt-8" v-if="user">
+    <UCard v-if="user">
       <div class="flex items-center gap-4">
         <UAvatar
           v-if="user.picture"

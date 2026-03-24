@@ -48,23 +48,13 @@ const displayName = computed(() => {
           />
           <span class="text-sm font-medium">{{ displayName }}</span>
         </NuxtLink>
-        <UButton
-          v-if="user"
-          label="Sign Out"
-          icon="i-lucide-log-out"
-          variant="ghost"
-          color="neutral"
-          @click="logout"
-        />
-        <UColorModeButton />
       </template>
     </UHeader>
 
-    <UMain>
+    <UMain class="flex flex-col">
       <NuxtPage />
-    </UMain>
 
-    <UFooter>
+    <UFooter class="mt-auto">
       <template #left>
         <div class="flex items-center gap-2 text-sm text-muted">
           <NuxtLink
@@ -101,5 +91,6 @@ const displayName = computed(() => {
         </div>
       </template>
     </UFooter>
+    </UMain>
   </UApp>
 </template>
