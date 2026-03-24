@@ -1,11 +1,13 @@
 <script setup lang="ts">
 const { user, logout } = useAuth()
 
+const shortenAddress = (addr: string) => `${addr.slice(0, 6)}...${addr.slice(-4)}`
+
 const displayName = computed(() => {
   if (!user.value) return ''
-  if (user.value.preferredUsername) return user.value.preferredUsername
-  const addr = user.value.sub
-  return `${addr.slice(0, 6)}...${addr.slice(-4)}`
+  const name = user.value.preferredUsername
+  if (name && !/^0x[0-9a-fA-F]{40}$/.test(name)) return name
+  return shortenAddress(user.value.sub.split(':').pop()!)
 })
 </script>
 
