@@ -54,43 +54,43 @@ const displayName = computed(() => {
     <UMain class="flex flex-col">
       <NuxtPage />
 
-    <UFooter class="mt-auto">
-      <template #left>
-        <div class="flex items-center gap-2 text-sm text-muted">
-          <NuxtLink
-            to="/privacy"
-            class="hover:text-primary"
-          >
-            Privacy Policy
-          </NuxtLink>
-          <span>&middot;</span>
-          <NuxtLink
-            to="/terms"
-            class="hover:text-primary"
-          >
-            Terms of Service
-          </NuxtLink>
-        </div>
-      </template>
+      <UFooter class="mt-auto">
+        <template #left>
+          <div class="flex items-center gap-2 text-sm text-muted">
+            <NuxtLink
+              to="/privacy"
+              class="hover:text-primary"
+            >
+              Privacy Policy
+            </NuxtLink>
+            <span>&middot;</span>
+            <NuxtLink
+              to="/terms"
+              class="hover:text-primary"
+            >
+              Terms of Service
+            </NuxtLink>
+          </div>
+        </template>
 
-      <template #right>
-        <div class="flex items-center gap-2 text-sm text-muted">
-          <NuxtLink
-            to="https://ethid.org"
-            class="hover:text-primary"
-          >
-            EthID.org
-          </NuxtLink>
-          <span>&middot;</span>
-          <NuxtLink
-            to="https://siwe.xyz"
-            class="hover:text-primary"
-          >
-            SIWE.xyz
-          </NuxtLink>
-        </div>
-      </template>
-    </UFooter>
+        <template #right>
+          <div class="flex items-center gap-2 text-sm text-muted">
+            <NuxtLink
+              to="https://ethid.org"
+              class="hover:text-primary"
+            >
+              EthID.org
+            </NuxtLink>
+            <span>&middot;</span>
+            <NuxtLink
+              to="https://siwe.xyz"
+              class="hover:text-primary"
+            >
+              SIWE.xyz
+            </NuxtLink>
+          </div>
+        </template>
+      </UFooter>
     </UMain>
   </UApp>
 </template>

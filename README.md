@@ -7,15 +7,15 @@ Designed to work with [`@signinwithethereum/oidc-provider`](https://github.com/s
 ## How it works
 
 ```
-┌─────────┐       ┌─────────────┐       ┌───────────────┐
-│ Browser  │──1──▶│  OIDC Client │──2──▶│ OIDC Provider  │
-│          │◀─6──│  (this app)  │◀─5──│ (siwe-oidc)    │
-└─────────┘       └─────────────┘       └───────────────┘
-                                              │   ▲
-                                           3  ▼   │ 4
-                                        ┌───────────────┐
-                                        │Ethereum Wallet │
-                                        └───────────────┘
++---------+      +--------------+      +------------------+
+| Browser |--1-->|  OIDC Client |--2-->|  OIDC Provider   |
+|         |<--6--|  (this app)  |<--5--| (oidc-provider)  |
++---------+      +--------------+      +------------------+
+                                               |   ^
+                                            3  v   |  4
+                                       +------------------+
+                                       | Ethereum Wallet  |
+                                       +------------------+
 ```
 
 1. User clicks **Sign in with Ethereum**

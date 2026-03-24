@@ -31,7 +31,8 @@ export const getClientRegistration = lazySingleton(
 
     if (oidc.policyUri) body.policy_uri = oidc.policyUri
     if (oidc.tosUri) body.tos_uri = oidc.tosUri
-    if (oidc.contacts) body.contacts = oidc.contacts.split(',').map((c: string) => c.trim())
+    if (oidc.contacts)
+      body.contacts = oidc.contacts.split(',').map((c: string) => c.trim())
 
     return $fetch<ClientRegistration>(config.registration_endpoint, {
       method: 'POST',

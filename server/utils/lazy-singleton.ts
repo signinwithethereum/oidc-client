@@ -7,7 +7,9 @@ export function lazySingleton<T>(
   return (event: H3Event) => {
     if (!pending) {
       pending = fn(event)
-      pending.catch(() => { pending = null })
+      pending.catch(() => {
+        pending = null
+      })
     }
     return pending
   }
