@@ -67,5 +67,5 @@ export default defineEventHandler(async (event) => {
     idToken: tokens.id_token,
   })
 
-  return sendRedirect(event, '/')
+  return sendRedirect(event, '/dashboard')
 })

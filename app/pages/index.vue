@@ -1,7 +1,9 @@
 <script setup lang="ts">
-const { user, loading, fetchUser, login, logout } = useAuth()
+const { user, loading, fetchUser, login } = useAuth()
 
 await fetchUser()
+
+if (user.value) await navigateTo('/dashboard')
 </script>
 
 <template>
@@ -12,23 +14,9 @@ await fetchUser()
       width="64"
       height="64"
     />
-    <h1>OIDC Client</h1>
+    <h1>OIDC Client Example</h1>
 
     <div v-if="loading">Loading...</div>
-
-    <div v-else-if="user">
-      <div v-if="user.picture">
-        <img
-          :src="user.picture"
-          :alt="user.preferredUsername"
-          width="64"
-          height="64"
-        />
-      </div>
-      <p>{{ user.preferredUsername || user.sub }}</p>
-      <pre>{{ JSON.stringify(user, null, 2) }}</pre>
-      <button @click="logout">Sign Out</button>
-    </div>
 
     <div v-else>
       <p>Not signed in.</p>
