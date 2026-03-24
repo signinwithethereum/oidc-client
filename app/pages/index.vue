@@ -1,9 +1,15 @@
 <script setup lang="ts">
 const { user, loading, fetchUser, login } = useAuth()
+const loggingIn = ref(false)
 
 await fetchUser()
 
 if (user.value) await navigateTo('/dashboard')
+
+function handleLogin() {
+  loggingIn.value = true
+  login()
+}
 </script>
 
 <template>
@@ -38,7 +44,8 @@ if (user.value) await navigateTo('/dashboard')
           <UButton
             label="Sign in with Ethereum"
             size="xl"
-            @click="login"
+            :loading="loggingIn"
+            @click="handleLogin"
           >
             <template #leading>
               <img
