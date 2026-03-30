@@ -82,9 +82,8 @@ function handleLogin() {
           </div>
         </template>
         <p class="text-muted text-sm">
-          Full OpenID Connect provider powered by Sign-In with Ethereum. Use
-          your existing OIDC libraries and infrastructure &mdash; no custom
-          integration needed.
+          Full OpenID Connect provider powered by Sign-In with Ethereum.
+          Works with your existing OIDC libraries out of the box.
         </p>
       </UCard>
 
@@ -116,7 +115,7 @@ function handleLogin() {
         </template>
         <p class="text-muted text-sm">
           Clients register automatically via the OIDC dynamic registration
-          endpoint. No manual setup, no client secrets &mdash; just PKCE.
+          endpoint. No manual setup, no client secrets needed.
         </p>
       </UCard>
     </div>

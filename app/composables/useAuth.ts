@@ -2,6 +2,8 @@ interface User {
   sub: string
   preferredUsername?: string
   picture?: string
+  siweMessage?: string
+  siweSignature?: string
 }
 
 export function useAuth() {

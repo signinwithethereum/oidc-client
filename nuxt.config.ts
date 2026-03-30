@@ -27,7 +27,7 @@ export default defineNuxtConfig({
     oidc: {
       issuer: 'http://localhost:3000', // NUXT_OIDC_ISSUER
       redirectUri: 'http://localhost:3001/api/auth/callback', // NUXT_OIDC_REDIRECT_URI
-      scope: 'openid profile', // NUXT_OIDC_SCOPE
+      scope: 'openid profile siwe', // NUXT_OIDC_SCOPE
       clientName: 'Example OIDC Client', // NUXT_OIDC_CLIENT_NAME
       clientUri: 'http://localhost:3001', // NUXT_OIDC_CLIENT_URI
       logoUri: 'http://localhost:3001/client-logo.png', // NUXT_OIDC_LOGO_URI

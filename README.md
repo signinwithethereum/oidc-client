@@ -21,7 +21,7 @@ flowchart LR
 3. Provider prompts the user to sign a SIWE message with their wallet
 4. Wallet returns the cryptographic signature
 5. Provider verifies the signature, issues an authorization code
-6. Client exchanges the code for tokens and creates a session
+6. Client exchanges the code for tokens, independently verifies the SIWE proof, and creates a session
 
 The client uses [dynamic client registration](https://openid.net/specs/openid-connect-registration-1_0.html) to automatically register itself with the provider on first use.
 
@@ -44,7 +44,7 @@ cp .env.example .env
 | `NUXT_SESSION_SECRET`    | Encryption key for session cookies (min 32 chars)   |                                           |
 | `NUXT_OIDC_ISSUER`       | URL of the OIDC provider                            | `http://localhost:3000`                   |
 | `NUXT_OIDC_REDIRECT_URI` | OAuth callback URL                                  | `http://localhost:3001/api/auth/callback` |
-| `NUXT_OIDC_SCOPE`        | Requested OIDC scopes                               | `openid profile`                          |
+| `NUXT_OIDC_SCOPE`        | Requested OIDC scopes                               | `openid profile siwe`                     |
 | `NUXT_OIDC_CLIENT_NAME`  | Display name shown on the provider's consent screen | `Example OIDC Client`                     |
 | `NUXT_OIDC_CLIENT_URI`   | Client homepage URL                                 | `http://localhost:3001`                   |
 | `NUXT_OIDC_LOGO_URI`     | Client logo URL                                     | `http://localhost:3001/client-logo.png`   |
@@ -104,6 +104,7 @@ server/
 - **State parameter** for CSRF protection
 - **Encrypted sessions** via `NUXT_SESSION_SECRET`
 - **Public client** (`token_endpoint_auth_method: none`) -- no client secret stored
+- **SIWE proof verification** -- when the `siwe` scope is requested, the client independently verifies the SIWE signature against the claimed Ethereum address using [viem](https://viem.sh). This gives full trustless verification but isn't a hard requirement -- clients that trust their provider can rely on the standard OIDC `sub` claim instead
 
 ## License
 

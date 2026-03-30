@@ -53,6 +53,43 @@ const { user, logout } = useAuth()
       </template>
     </UCard>
 
+    <UCard v-if="user?.siweMessage" class="mt-6">
+      <template #header>
+        <div class="flex items-center gap-2">
+          <UIcon
+            name="i-lucide-file-check"
+            class="text-primary text-xl"
+          />
+          <h3 class="font-semibold">SIWE Proof</h3>
+          <UBadge
+            color="success"
+            variant="subtle"
+            class="ml-auto"
+          >
+            Verified
+          </UBadge>
+        </div>
+      </template>
+
+      <div class="space-y-4">
+        <div class="text-sm text-success bg-success/10 rounded p-3">
+          This client verified the SIWE signature for {{ user.sub }}.
+        </div>
+        <p class="text-xs text-muted">
+          Verification is optional. Clients that trust their provider can
+          rely on the OIDC <code>sub</code> claim directly.
+        </p>
+        <div>
+          <p class="text-sm font-medium mb-1">Message</p>
+          <pre class="text-sm bg-elevated rounded p-4 overflow-x-auto whitespace-pre-wrap">{{ user.siweMessage }}</pre>
+        </div>
+        <div>
+          <p class="text-sm font-medium mb-1">Signature</p>
+          <pre class="text-sm bg-elevated rounded p-4 overflow-x-auto break-all">{{ user.siweSignature }}</pre>
+        </div>
+      </div>
+    </UCard>
+
     <USeparator class="my-12" />
 
     <h2 class="text-xl font-semibold mb-6 text-center">How It Works</h2>
@@ -85,9 +122,8 @@ const { user, logout } = useAuth()
           </div>
         </template>
         <p class="text-muted text-sm">
-          This client uses Proof Key for Code Exchange &mdash; no client secrets
-          are stored. The authorization code is exchanged securely using a
-          one-time verifier.
+          Authorization uses Proof Key for Code Exchange (PKCE). No client
+          secrets are stored.
         </p>
       </UCard>
 
@@ -102,8 +138,8 @@ const { user, logout } = useAuth()
           </div>
         </template>
         <p class="text-muted text-sm">
-          Your session is stored in an encrypted server-side cookie. No database
-          required &mdash; sign out and it's gone.
+          Your session is an encrypted server-side cookie. Sign out and
+          it's gone.
         </p>
       </UCard>
     </div>

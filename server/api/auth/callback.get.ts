@@ -1,3 +1,5 @@
+import { verifyMessage } from 'viem'
+
 export default defineEventHandler(async (event) => {
   const { oidc } = useRuntimeConfig(event)
   const [config, registration, session] = await Promise.all([
@@ -50,11 +52,29 @@ export default defineEventHandler(async (event) => {
     sub: string
     preferred_username?: string
     picture?: string
+    siwe_message?: string
+    siwe_signature?: string
   }>(config.userinfo_endpoint, {
     headers: {
       Authorization: `Bearer ${tokens.access_token}`,
     },
   })
+
+  // Verify the SIWE proof if the provider returned one.
+  // Optional: clients that trust their provider can skip this.
+  if (userinfo.siwe_message && userinfo.siwe_signature) {
+    const valid = await verifyMessage({
+      address: userinfo.sub.split(':').pop() as `0x${string}`,
+      message: userinfo.siwe_message,
+      signature: userinfo.siwe_signature as `0x${string}`,
+    })
+    if (!valid) {
+      throw createError({
+        statusCode: 403,
+        message: 'SIWE signature verification failed: signature does not match the claimed address',
+      })
+    }
+  }
 
   // Store user in session
   await session.update({
@@ -63,6 +83,8 @@ export default defineEventHandler(async (event) => {
       sub: userinfo.sub,
       preferredUsername: userinfo.preferred_username,
       picture: userinfo.picture,
+      siweMessage: userinfo.siwe_message,
+      siweSignature: userinfo.siwe_signature,
     },
     idToken: tokens.id_token,
   })
