@@ -108,4 +108,4 @@ server/
 
 ## License
 
-[MIT](./LICENSE) -- Copyright (c) 2026 EthID.org
+[MIT](./LICENSE) Copyright (c) 2026 EthID.org
