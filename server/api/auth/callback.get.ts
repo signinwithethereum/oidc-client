@@ -1,4 +1,4 @@
-import { verifyMessage } from 'viem'
+import { verifyMessage } from 'viem/utils'
 
 export default defineEventHandler(async (event) => {
   const { oidc } = useRuntimeConfig(event)
