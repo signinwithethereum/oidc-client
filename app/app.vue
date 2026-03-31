@@ -13,7 +13,7 @@ const displayName = computed(() => {
 
 <template>
   <UApp>
-    <UHeader>
+    <UHeader :toggle="false">
       <template #left>
         <NuxtLink
           to="/"
@@ -26,7 +26,7 @@ const displayName = computed(() => {
             height="32"
             class="rounded-xl"
           />
-          <span class="font-semibold">OIDC Client</span>
+          <span class="font-semibold whitespace-nowrap leading-none">OIDC Client</span>
         </NuxtLink>
         <UButton
           v-if="user"
