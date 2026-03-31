@@ -14,5 +14,5 @@ ENV PORT=3001
 EXPOSE 3001
 CMD ["node", ".output/server/index.mjs"]
 LABEL org.opencontainers.image.source="https://github.com/signinwithethereum/siwe-oidc"
-LABEL org.opencontainers.image.description="Example OIDC Client for Sign-In with Ethereum"
+LABEL org.opencontainers.image.description="Example OIDC Client for Sign in with Ethereum"
 LABEL org.opencontainers.image.licenses="MIT"

@@ -1,6 +1,6 @@
 # @signinwithethereum/oidc-client
 
-An OpenID Connect client that authenticates users with their Ethereum wallets via [Sign-In with Ethereum (SIWE)](https://siwe.xyz).
+An OpenID Connect client that authenticates users with their Ethereum wallets via [Sign in with Ethereum (SIWE)](https://siwe.xyz).
 
 Designed to work with [`@signinwithethereum/oidc-provider`](https://github.com/signinwithethereum/oidc-provider) as the identity provider.
 

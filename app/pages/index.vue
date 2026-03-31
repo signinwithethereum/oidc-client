@@ -82,8 +82,8 @@ function handleLogin() {
           </div>
         </template>
         <p class="text-muted text-sm">
-          Full OpenID Connect provider powered by Sign-In with Ethereum.
-          Works with your existing OIDC libraries out of the box.
+          Full OpenID Connect provider powered by Sign in with Ethereum. Works
+          with your existing OIDC libraries out of the box.
         </p>
       </UCard>
 

@@ -41,7 +41,7 @@
         </template>
         <p class="text-muted">
           This application is an OpenID Connect client that authenticates users
-          via Sign-In with Ethereum (SIWE). It is provided as-is for
+          via Sign in with Ethereum (SIWE). It is provided as-is for
           demonstration and development purposes.
         </p>
       </UCard>
