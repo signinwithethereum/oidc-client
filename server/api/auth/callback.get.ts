@@ -1,7 +1,8 @@
-import { verifyMessage } from 'viem/utils'
+import { SiweMessage, createViemConfig } from '@signinwithethereum/siwe'
+import { createPublicClient, http } from 'viem'
 
 export default defineEventHandler(async (event) => {
-  const { oidc } = useRuntimeConfig(event)
+  const { oidc, rpcUrl } = useRuntimeConfig(event)
   const [config, registration, session] = await Promise.all([
     getOIDCConfiguration(event),
     getClientRegistration(event),
@@ -63,30 +64,40 @@ export default defineEventHandler(async (event) => {
   // Verify the SIWE proof if the provider returned one.
   // Optional: clients that trust their provider can skip this.
   if (userinfo.siwe_message && userinfo.siwe_signature) {
-    const valid = await verifyMessage({
-      address: userinfo.sub.split(':').pop() as `0x${string}`,
-      message: userinfo.siwe_message,
-      signature: userinfo.siwe_signature as `0x${string}`,
+    const message = new SiweMessage(userinfo.siwe_message)
+    const publicClient = createPublicClient({
+      chain: { id: message.chainId } as any,
+      transport: http(rpcUrl),
     })
-    if (!valid) {
+    const siweConfig = await createViemConfig({ publicClient })
+    const { success, error } = await message.verify(
+      {
+        signature: userinfo.siwe_signature,
+        domain: message.domain,
+        nonce: message.nonce,
+      },
+      { config: siweConfig },
+    )
+    if (!success) {
       throw createError({
         statusCode: 403,
-        message: 'SIWE signature verification failed: signature does not match the claimed address',
+        message: `SIWE verification failed: ${error?.type ?? 'unknown error'}`,
       })
     }
   }
 
-  // Store user in session
+  // Store user in session (keep it small to fit in a 4KB cookie).
+  // SIWE proof is fetched on demand via /api/auth/siwe to avoid
+  // exceeding the cookie size limit.
   await session.update({
     state: undefined,
     user: {
       sub: userinfo.sub,
       preferredUsername: userinfo.preferred_username,
       picture: userinfo.picture,
-      siweMessage: userinfo.siwe_message,
-      siweSignature: userinfo.siwe_signature,
+      siweVerified: !!(userinfo.siwe_message && userinfo.siwe_signature),
     },
-    idToken: tokens.id_token,
+    accessToken: tokens.access_token,
   })
 
   return sendRedirect(event, '/dashboard')

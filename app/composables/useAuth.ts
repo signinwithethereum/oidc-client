@@ -2,18 +2,18 @@ interface User {
   sub: string
   preferredUsername?: string
   picture?: string
-  siweMessage?: string
-  siweSignature?: string
+  siweVerified?: boolean
 }
 
 export function useAuth() {
   const user = useState<User | null>('auth:user', () => null)
   const loading = useState('auth:loading', () => true)
+  const headers = import.meta.server ? useRequestHeaders(['cookie']) : {}
 
   async function fetchUser() {
     loading.value = true
     try {
-      user.value = await $fetch<User>('/api/auth/me')
+      user.value = await $fetch<User>('/api/auth/me', { headers })
     } catch {
       user.value = null
     } finally {

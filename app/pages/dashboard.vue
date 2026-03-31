@@ -2,6 +2,11 @@
 definePageMeta({ middleware: 'auth' })
 
 const { user, logout } = useAuth()
+
+const { data: siweProof } = useFetch('/api/auth/siwe', {
+  headers: import.meta.server ? useRequestHeaders(['cookie']) : {},
+  immediate: !!user.value?.siweVerified,
+})
 </script>
 
 <template>
@@ -53,7 +58,7 @@ const { user, logout } = useAuth()
       </template>
     </UCard>
 
-    <UCard v-if="user?.siweMessage" class="mt-6">
+    <UCard v-if="user?.siweVerified" class="mt-6">
       <template #header>
         <div class="flex items-center gap-2">
           <UIcon
@@ -79,14 +84,16 @@ const { user, logout } = useAuth()
           Verification is optional. Clients that trust their provider can
           rely on the OIDC <code>sub</code> claim directly.
         </p>
-        <div>
-          <p class="text-sm font-medium mb-1">Message</p>
-          <pre class="text-sm bg-elevated rounded p-4 overflow-x-auto whitespace-pre-wrap">{{ user.siweMessage }}</pre>
-        </div>
-        <div>
-          <p class="text-sm font-medium mb-1">Signature</p>
-          <pre class="text-sm bg-elevated rounded p-4 overflow-x-auto break-all">{{ user.siweSignature }}</pre>
-        </div>
+        <template v-if="siweProof">
+          <div>
+            <p class="text-sm font-medium mb-1">Message</p>
+            <pre class="text-sm bg-elevated rounded p-4 overflow-x-auto whitespace-pre-wrap">{{ siweProof.message }}</pre>
+          </div>
+          <div>
+            <p class="text-sm font-medium mb-1">Signature</p>
+            <pre class="text-sm bg-elevated rounded p-4 overflow-x-auto break-all">{{ siweProof.signature }}</pre>
+          </div>
+        </template>
       </div>
     </UCard>
 

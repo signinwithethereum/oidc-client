@@ -42,6 +42,7 @@ cp .env.example .env
 | Variable                 | Description                                         | Default                                   |
 | ------------------------ | --------------------------------------------------- | ----------------------------------------- |
 | `NUXT_SESSION_SECRET`    | Encryption key for session cookies (min 32 chars)   |                                           |
+| `NUXT_RPC_URL`            | Ethereum JSON-RPC URL for SIWE signature verification (needed for smart contract wallets) | `https://eth.llamarpc.com` |
 | `NUXT_OIDC_ISSUER`       | URL of the OIDC provider                            | `http://localhost:3000`                   |
 | `NUXT_OIDC_REDIRECT_URI` | OAuth callback URL                                  | `http://localhost:3001/api/auth/callback` |
 | `NUXT_OIDC_SCOPE`        | Requested OIDC scopes                               | `openid profile siwe`                     |
@@ -52,7 +53,7 @@ cp .env.example .env
 | `NUXT_OIDC_TOS_URI`      | Terms of service URL                                |                                           |
 | `NUXT_OIDC_CONTACTS`     | Admin contact emails (comma-separated)              |                                           |
 
-`NUXT_OIDC_CLIENT_ID` and `NUXT_OIDC_CLIENT_SECRET` are optional -- the client registers itself automatically via the provider's registration endpoint.
+`NUXT_OIDC_CLIENT_ID` and `NUXT_OIDC_CLIENT_SECRET` are optional. The client registers itself automatically via the provider's registration endpoint.
 
 ## Development
 
@@ -103,8 +104,8 @@ server/
 - **PKCE** (S256) for the authorization code exchange
 - **State parameter** for CSRF protection
 - **Encrypted sessions** via `NUXT_SESSION_SECRET`
-- **Public client** (`token_endpoint_auth_method: none`) -- no client secret stored
-- **SIWE proof verification** -- when the `siwe` scope is requested, the client independently verifies the SIWE signature against the claimed Ethereum address using [viem](https://viem.sh). This gives full trustless verification but isn't a hard requirement -- clients that trust their provider can rely on the standard OIDC `sub` claim instead
+- **Public client** (`token_endpoint_auth_method: none`). No client secret stored
+- **SIWE proof verification** using [`@signinwithethereum/siwe`](https://github.com/signinwithethereum/siwe). Supports both EOA and smart contract wallets (ERC-1271). Verification is optional; clients that trust their provider can rely on the OIDC `sub` claim directly
 
 ## License
 

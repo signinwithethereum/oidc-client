@@ -24,6 +24,7 @@ export default defineNuxtConfig({
     session: {
       secret: '', // NUXT_SESSION_SECRET (min 32 chars)
     },
+    rpcUrl: 'https://eth.llamarpc.com', // NUXT_RPC_URL
     oidc: {
       issuer: 'http://localhost:3000', // NUXT_OIDC_ISSUER
       redirectUri: 'http://localhost:3001/api/auth/callback', // NUXT_OIDC_REDIRECT_URI

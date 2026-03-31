@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@nuxt/ui": "^4.6.0",
+    "@signinwithethereum/siwe": "^4.1.0",
     "nuxt": "^4.4.2",
     "tailwindcss": "^4.2.2",
     "viem": "^2.47.6",
